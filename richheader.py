@@ -9,10 +9,14 @@ import hashlib
 import sqlite3
 import collections
 
-# the script uses this custom version of PEfile : https://github.com/angelkillah/pefile
-
 hashes = []
 
+def get_hash(f):
+    with open(f, 'rb') as f_file:
+        f_data = f_file.read()
+        h_data = hashlib.sha1(f_data).hexdigest()
+        return h_data
+            
 def generate_yara(hashes):
     rule = ""
     if hashes:
@@ -41,9 +45,7 @@ def parse_file(f, cur, store=False, scan=False):
         hashes.append(h_rich)
         
         if store:
-            with open(f, 'rb') as f_file:
-                f_data = f_file.read()
-                h_data = hashlib.sha1(f_data).hexdigest()
+            h_data = get_hash(f)
             cur.execute("SELECT id_file FROM File WHERE hash_file='"+h_data+"'")
             if cur.fetchone() == None:
                 cur.execute("INSERT INTO File(path_file, hash_file, hash_rich) VALUES(?,?,?)", (f, h_data, h_rich))
@@ -101,7 +103,7 @@ def main(argc, argv):
                         print "[-] %s has no common known rich header info" % (f)
                         return 0
                     for res in results:
-                        if res[0] != f:
+                        if res[1] != get_hash(f):
                             print res
 
     if args.directory:
