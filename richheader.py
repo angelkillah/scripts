@@ -22,9 +22,12 @@ def generate_yara(hashes):
     if hashes:
         rule += "import \"pe\"\r\nimport \"hash\"\r\n\r\n"
         rule += "rule Common_RichSignature{\r\n" + "  condition:\r\n\t"
-        for i in range(len(hashes)-1):
-            rule += "hash.sha1(pe.rich_signature.clear_data) == \"" + hashes[i] + "\" or " 
-        rule += "hash.sha1(pe.rich_signature.clear_data) == \"" + hashes[i+1] + "\" \r\n}"  
+        if len(hashes) == 1:
+            rule += "hash.sha1(pe.rich_signature.clear_data) == \"" + hashes[0] + "\" \r\n}"
+        else:
+            for i in range(len(hashes)-1):
+                rule += "hash.sha1(pe.rich_signature.clear_data) == \"" + hashes[i] + "\" or " 
+            rule += "hash.sha1(pe.rich_signature.clear_data) == \"" + hashes[i+1] + "\" \r\n}"  
         with open("rich.yar", "w+") as f:
             f.write(rule)
             print "[+] rich.yar ready... enjoy !" 
