@@ -1,0 +1,46 @@
+{%- extends "base.html" %}
+{% block content %}
+
+<nav class="navbar navbar-inverse navbar-fixed-top">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">MetaPE</a>
+    </div>
+    <div id="navbar" class="collapse navbar-collapse">
+      <ul class="nav navbar-nav">
+        <li><a href="/">Home</a></li>
+        <li><a href="/search">Database</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+</div>
+
+{% for entry in result %}  
+<br/><br/><br/>
+<div class="container">       
+  <table id="myTable" class="table table-bordered" >  
+    <thead>  
+      <tr>  
+        <th colspan="2">{{ entry[0] }}</th>  
+      </tr>  
+    </thead>  
+    <tbody>  
+      {% for j in range(entry[1]+1) %} 
+      <tr>
+        <td>{{ entry[j+1][0] }}</td>
+        <td>{{ entry[j+1][1] }}</td>
+      </tr>
+      {% endfor %}  
+    </tbody> 
+  </table>  
+</div>
+{% endfor %}
+
+{% endblock %}

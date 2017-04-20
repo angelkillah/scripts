@@ -1,0 +1,87 @@
+{%- extends "base.html" %}
+{% block content %}
+
+<nav class="navbar navbar-inverse navbar-fixed-top">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">MetaPE</a>
+    </div>
+    <div id="navbar" class="collapse navbar-collapse">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="#">Home</a></li>
+        <li><a href="/search">Database</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+</div>
+
+<div class="container">&nbsp;
+  {% with messages = get_flashed_messages(with_categories=True) %}
+  {% if messages %}
+  <div class="row">
+   <div class="col-md-12">
+    {{utils.flashed_messages(messages)}}
+  </div>
+</div>
+{% endif %}
+{% endwith %}
+
+<br/><br/><br/><br/>
+<div class="container">
+  <div class="panel panel-info">
+    <div class="panel-heading">MetaPE Submission</div>
+    <div class="panel-body">
+      <form action="http://localhost:5000/" method="POST" enctype="multipart/form-data">
+        <div class="form-group">
+          <div class="col-md6 col-md-offset-2 center" style="position:relative;">
+            <a class='btn btn-default'>
+              Choose File...
+              <input type="file" class="form-control" style='position:absolute;z-index:2;top:0;left:0;filter: alpha(opacity=0);-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";opacity:0;background-color:transparent;color:transparent;' name="file" size="40" onchange='$("#upload-file-info").html($(this).val());'>
+            </a>&nbsp;&nbsp;
+            <span class='label label-default' id='upload-file-info'>Select a ZIP archive</span></br></br>
+            <div class="col-lg-4">
+              <div class="input-group">
+                <span class="input-group-addon">
+                  <input type="checkbox" name="add_to_db">
+                </span>
+                <input type="text" class="form-control" value="Add archive to database" readonly>
+              </div></br>
+              <div class="input-group">
+                <span class="input-group-addon">
+                  <input type="checkbox" name="check_simil">
+                </span>
+                <input type="text" class="form-control" value="Check similarities" readonly>
+              </div></br>
+              <div class="row">
+                <div class="form-group col-lg-6">
+                  <label for="new_tag">Create new tag:</label>
+                  <input type="text" class="form-control" name="new_tag">
+                </div>
+                <div class="from-group col-lg-6">
+                  <label for="existing_tag">Use existing tag:</label>
+                  <select class="form-control" id="tag" name="tag">
+                    <option></option>
+                    {% for o in option_list %}
+                      <option>{{ o }}</option>
+                    {% endfor %}
+                  </select><br/><br/>
+                </div>
+                <div class="col-md6 col-md-offset-2 center">
+                  <button type="submit" class="btn btn-primary">Submit</button>      
+                </div>
+              </form>
+            </div> <!-- end col-lg-4 -->
+          </div> <!-- end-md-6 -->
+        </div> <!-- end form-group -->
+      </form>
+    </div> <!-- end panel-body -->
+  </div>
+</div>
+{% endblock %}

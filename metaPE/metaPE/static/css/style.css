@@ -1,0 +1,35 @@
+body {
+  padding-top: 50px;
+}
+
+.results tr[visible='false'],
+.no-result{
+  display:none;
+}
+
+.results tr[visible='true']{
+  display:table-row;
+}
+
+.counter{
+  padding:8px; 
+  color:#ccc;
+}
+
+.table-responsive {height:180px;}
+
+.starter-template {
+  padding: 40px 15px;
+  text-align: center;
+}
+
+.marge {
+margin-left: 5em;
+}
+
+.btn .btn-default .submit { position: center;}
+
+.input-file { position: relative;} 
+.input-file .input-group-addon { border: 0px; padding: 0px;}
+.input-file .input-group-addon .btn { border-radius: 0 4px 4px 0 }
+.input-file .input-group-addon input { cursor: pointer; position:absolute; width: 72px; z-index:2;top:0;right:0;filter: alpha(opacity=0);-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";opacity:0; background-color:transparent; color:transparent; }
