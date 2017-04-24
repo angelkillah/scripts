@@ -1,1 +1,1 @@
-__all__ = ['DB', 'File', 'Rich']
+__all__ = ['DB', 'File']
